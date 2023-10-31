@@ -6,6 +6,7 @@ function App() {
   // Find your CMS ID and Public Token from the settings page.
   const CMS_ID = process.env.REACT_APP_PLASMIC_CMS_ID;
   const CMS_PUBLIC_TOKEN = process.env.REACT_APP_PLASMIC_PUBLIC_KEY;
+  const [openTickets, setOpenTickets] = useState([]);
 
   const modelId = "order";
 
@@ -26,7 +27,9 @@ function App() {
             },
           }
         );
-        console.log(response);
+        const parsedResponse = await response.json();
+        setOpenTickets(parsedResponse.rows);
+        console.log(openTickets);
         setIsBusy(false);
       } catch (error) {
         return;
@@ -38,7 +41,12 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        No Online Orders! {isBusy && <ScaleLoader color="#fff" />}
+        {openTickets.length > 0 ? (
+          <span>Tickets Found!</span>
+        ) : (
+          <span>No Online Orders!</span>
+        )}
+        {isBusy && <ScaleLoader color="#fff" />}
       </header>
     </div>
   );
