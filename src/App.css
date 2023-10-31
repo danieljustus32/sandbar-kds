@@ -2,25 +2,19 @@
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
 @media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+  /* For ADA reasons, use it */
 }
 
 .App-header {
-  background-color: #282c34;
+  background-color: #111;
+  font-family: Abel;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  font-size: 20rem;
   color: white;
 }
 
@@ -35,4 +29,9 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+@font-face {
+  font-family: "Abel";
+  src: local("Abel"), url("./fonts/Abel-Regular.ttf") format("ttf");
 }
