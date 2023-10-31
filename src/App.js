@@ -7,14 +7,31 @@ function App() {
   const CMS_ID = process.env.REACT_APP_PLASMIC_CMS_ID;
   const CMS_PUBLIC_TOKEN = process.env.REACT_APP_PLASMIC_PUBLIC_KEY;
 
+  const modelId = "order";
+
   const [isBusy, setIsBusy] = useState(false);
 
   useEffect(() => {
-    setInterval(() => {
+    setInterval(async () => {
       setIsBusy(true);
       console.log("KDS is checking for tickets!");
       // Do network stuff
-      setIsBusy(false);
+      try {
+        const response = await fetch(
+          `https://data.plasmic.app/api/v1/cms/databases/${CMS_ID}/tables/${modelId}/query`,
+          {
+            headers: {
+              // Plasmic CMS ID and CMS Public API token
+              "x-plasmic-api-cms-tokens": `${CMS_ID}:${CMS_PUBLIC_TOKEN}`,
+            },
+          }
+        );
+        console.log(response);
+        setIsBusy(false);
+      } catch (error) {
+        return;
+      }
+      // Load all model entries
     }, 15000);
   }, []);
 
