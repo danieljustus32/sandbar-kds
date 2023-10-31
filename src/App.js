@@ -14,19 +14,22 @@ function App() {
 
   useEffect(() => {
     setInterval(async () => {
+      const apiUrl = new URL(
+        `https://data.plasmic.app/api/v1/cms/databases/${CMS_ID}/tables/${modelId}/query`
+      );
+      apiUrl.search = new URLSearchParams({
+        q: JSON.stringify({ where: { open: true } }),
+      });
       setIsBusy(true);
       console.log("KDS is checking for tickets!");
       // Do network stuff
       try {
-        const response = await fetch(
-          `https://data.plasmic.app/api/v1/cms/databases/${CMS_ID}/tables/${modelId}/query`,
-          {
-            headers: {
-              // Plasmic CMS ID and CMS Public API token
-              "x-plasmic-api-cms-tokens": `${CMS_ID}:${CMS_PUBLIC_TOKEN}`,
-            },
-          }
-        );
+        const response = await fetch(apiUrl.toString(), {
+          headers: {
+            // Plasmic CMS ID and CMS Public API token
+            "x-plasmic-api-cms-tokens": `${CMS_ID}:${CMS_PUBLIC_TOKEN}`,
+          },
+        });
         const parsedResponse = await response.json();
         setOpenTickets(parsedResponse.rows);
         console.log(openTickets);
@@ -35,7 +38,7 @@ function App() {
         return;
       }
       // Load all model entries
-    }, 15000);
+    }, 10000);
   }, []);
 
   return (
@@ -46,7 +49,9 @@ function App() {
         ) : (
           <span>No Online Orders!</span>
         )}
-        {isBusy && <ScaleLoader color="#fff" />}
+        <div className="loadingIndicator">
+          {isBusy && <ScaleLoader color="#fff" />}
+        </div>
       </header>
     </div>
   );
