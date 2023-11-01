@@ -50,6 +50,13 @@ function App() {
     console.log(openTickets);
   }, [openTickets]);
 
+  // Used to left-pad numbers with 0's, e.g. 1 becomes 001 //
+  const lpad = function (s, width, char) {
+    return s.length >= width
+      ? s
+      : (new Array(width).join(char) + s).slice(-width);
+  };
+
   return (
     <div className="App">
       <header className="App-header">
@@ -60,10 +67,8 @@ function App() {
               {openTickets.map((ticket) => {
                 return (
                   <div key={ticket.id} className="ticket">
-                    <span>
-                      {ticket.data.firstName + " " + ticket.data.lastName}
-                    </span>
-                    <span>{formatPhoneNumber(ticket.data.phone)}</span>
+                    <span>{ticket.data.firstName}</span>
+                    <span>{lpad(ticket.data.number, 3, "0")}</span>
                     <span>{moment(ticket.createdAt).format("HH:mm")}</span>
                     <div className="order-wrapper">
                       <ul>
