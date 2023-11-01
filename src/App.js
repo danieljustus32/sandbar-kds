@@ -10,8 +10,6 @@ function App() {
 
   const modelId = "order";
 
-  const [isBusy, setIsBusy] = useState(false);
-
   function formatPhoneNumber(phoneNumberString) {
     var cleaned = ("" + phoneNumberString).replace(/\D/g, "");
     var match = cleaned.match(/^(\d{3})(\d{3})(\d{4})$/);
@@ -27,9 +25,8 @@ function App() {
         `https://data.plasmic.app/api/v1/cms/databases/${CMS_ID}/tables/${modelId}/query`
       );
       apiUrl.search = new URLSearchParams({
-        q: JSON.stringify({ where: { open: true }, limit: 4 }),
+        q: JSON.stringify({ where: { open: true }, limit: 4, order: "asc" }),
       }).toString();
-      setIsBusy(true);
       console.log("KDS is checking for tickets!");
       // Do network stuff
       try {
@@ -41,16 +38,16 @@ function App() {
         });
         const parsedResponse = await response.json();
         setOpenTickets(parsedResponse.rows);
-        setIsBusy(false);
       } catch (error) {
-        return;
+        alert(error);
       }
     }, 1000);
-  }, []);
+  }, [CMS_ID, CMS_PUBLIC_TOKEN]);
 
-  useEffect(() => {
-    console.log(openTickets);
-  }, [openTickets]);
+  // FOR DEBUG PURPOSES //
+  // useEffect(() => {
+  //   console.log(openTickets);
+  // }, [openTickets]);
 
   return (
     <div className="App">
