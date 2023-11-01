@@ -14,7 +14,6 @@ function App() {
 
   useEffect(() => {
     setInterval(async () => {
-      console.clear();
       const apiUrl = new URL(
         `https://data.plasmic.app/api/v1/cms/databases/${CMS_ID}/tables/${modelId}/query`
       );
@@ -48,7 +47,21 @@ function App() {
     <div className="App">
       <header className="App-header">
         {openTickets.length > 0 ? (
-          <span>Tickets Found!</span>
+          <>
+            <span className="tickets-header">Open Tickets:</span>
+            <div className="tickets-wrapper">
+              {openTickets.map((ticket) => {
+                return (
+                  <div key={ticket.id} className="ticket">
+                    <span>
+                      {ticket.data.firstName + " " + ticket.data.lastName}
+                    </span>
+                    <span>{ticket.data.phone}</span>
+                  </div>
+                );
+              })}
+            </div>
+          </>
         ) : (
           <span>No Online Orders!</span>
         )}

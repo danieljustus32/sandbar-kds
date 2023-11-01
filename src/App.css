@@ -22,6 +22,28 @@
   color: #61dafb;
 }
 
+.ticket {
+  border: 1px solid white;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  font-size: 3rem;
+  height: 85vh;
+  width: calc(25vw - 2px);
+}
+
+.tickets-header {
+  font-size: 5rem;
+  position: fixed;
+  top: 30px;
+}
+
+.tickets-wrapper {
+  display: flex;
+  flex-direction: row;
+  margin-top: auto;
+}
+
 @font-face {
   font-family: "Abel";
   src: local("Abel"), url("./fonts/Abel-Regular.ttf") format("ttf");
