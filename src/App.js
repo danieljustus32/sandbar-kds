@@ -45,7 +45,7 @@ function App() {
       } catch (error) {
         return;
       }
-    }, 10000);
+    }, 1000);
   }, []);
 
   useEffect(() => {

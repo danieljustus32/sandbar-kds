@@ -29,6 +29,7 @@
   flex-direction: column;
   font-size: 3rem;
   height: 85vh;
+  padding: 15px 0 0 0;
   width: calc(25vw - 2px);
 }
 
@@ -42,6 +43,8 @@
   display: flex;
   flex-direction: row;
   margin-top: auto;
+  margin-right: auto;
+  transition: all 1s ease;
 }
 
 @font-face {
