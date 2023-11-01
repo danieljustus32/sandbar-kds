@@ -56,6 +56,16 @@
   width: 95%;
 }
 
+.line-item {
+  font-size: 3.5rem;
+  text-align: left;
+}
+
+.modifier {
+  color: red;
+  text-align: left;
+}
+
 @font-face {
   font-family: "Abel";
   src: local("Abel"), url("./fonts/Abel-Regular.ttf") format("ttf");

@@ -1,6 +1,7 @@
 import "./App.css";
 import { React, useEffect, useState } from "react";
 import moment from "moment";
+import { v4 as uuidv4 } from "uuid";
 
 function App() {
   // Find your CMS ID and Public Token from the settings page.
@@ -45,9 +46,9 @@ function App() {
   }, [CMS_ID, CMS_PUBLIC_TOKEN]);
 
   // FOR DEBUG PURPOSES //
-  // useEffect(() => {
-  //   console.log(openTickets);
-  // }, [openTickets]);
+  useEffect(() => {
+    console.log(openTickets);
+  }, [openTickets]);
 
   return (
     <div className="App">
@@ -65,7 +66,26 @@ function App() {
                     <span>{formatPhoneNumber(ticket.data.phone)}</span>
                     <span>{moment(ticket.createdAt).format("HH:mm")}</span>
                     <div className="order-wrapper">
-                      <span>Order</span>
+                      <ul>
+                        {ticket.data.order.map((entry) => {
+                          return (
+                            <li key={uuidv4()} className="line-item">
+                              <span>{entry.item.name}</span>
+                              {entry.item.modifiers
+                                ? entry.item.modifiers.map((mod) => {
+                                    return (
+                                      <ul key={uuidv4()} className="modifier">
+                                        <li>
+                                          <span>{mod.modifier}</span>
+                                        </li>
+                                      </ul>
+                                    );
+                                  })
+                                : null}
+                            </li>
+                          );
+                        })}
+                      </ul>
                     </div>
                   </div>
                 );
