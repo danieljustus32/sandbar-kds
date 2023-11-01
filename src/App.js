@@ -14,12 +14,13 @@ function App() {
 
   useEffect(() => {
     setInterval(async () => {
+      console.clear();
       const apiUrl = new URL(
         `https://data.plasmic.app/api/v1/cms/databases/${CMS_ID}/tables/${modelId}/query`
       );
       apiUrl.search = new URLSearchParams({
-        q: JSON.stringify({ where: { open: true } }),
-      });
+        q: JSON.stringify({ where: { open: true }, limit: 4 }),
+      }).toString();
       setIsBusy(true);
       console.log("KDS is checking for tickets!");
       // Do network stuff
@@ -32,14 +33,16 @@ function App() {
         });
         const parsedResponse = await response.json();
         setOpenTickets(parsedResponse.rows);
-        console.log(openTickets);
         setIsBusy(false);
       } catch (error) {
         return;
       }
-      // Load all model entries
     }, 10000);
   }, []);
+
+  useEffect(() => {
+    console.log(openTickets);
+  }, [openTickets]);
 
   return (
     <div className="App">
@@ -49,9 +52,6 @@ function App() {
         ) : (
           <span>No Online Orders!</span>
         )}
-        <div className="loadingIndicator">
-          {isBusy && <ScaleLoader color="#fff" />}
-        </div>
       </header>
     </div>
   );

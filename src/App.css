@@ -22,10 +22,6 @@
   color: #61dafb;
 }
 
-.loadingIndicator {
-  height: 10px;
-}
-
 @font-face {
   font-family: "Abel";
   src: local("Abel"), url("./fonts/Abel-Regular.ttf") format("ttf");
