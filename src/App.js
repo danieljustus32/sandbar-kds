@@ -12,6 +12,15 @@ function App() {
 
   const [isBusy, setIsBusy] = useState(false);
 
+  function formatPhoneNumber(phoneNumberString) {
+    var cleaned = ("" + phoneNumberString).replace(/\D/g, "");
+    var match = cleaned.match(/^(\d{3})(\d{3})(\d{4})$/);
+    if (match) {
+      return "(" + match[1] + ") " + match[2] + "-" + match[3];
+    }
+    return null;
+  }
+
   useEffect(() => {
     setInterval(async () => {
       const apiUrl = new URL(
@@ -56,7 +65,7 @@ function App() {
                     <span>
                       {ticket.data.firstName + " " + ticket.data.lastName}
                     </span>
-                    <span>{ticket.data.phone}</span>
+                    <span>{formatPhoneNumber(ticket.data.phone)}</span>
                   </div>
                 );
               })}
