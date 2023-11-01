@@ -1,6 +1,6 @@
 import "./App.css";
 import { React, useEffect, useState } from "react";
-import { ScaleLoader } from "react-spinners";
+import moment from "moment";
 
 function App() {
   // Find your CMS ID and Public Token from the settings page.
@@ -66,13 +66,16 @@ function App() {
                       {ticket.data.firstName + " " + ticket.data.lastName}
                     </span>
                     <span>{formatPhoneNumber(ticket.data.phone)}</span>
+                    <span>{moment(ticket.createdAt).format("HH:mm")}</span>
                   </div>
                 );
               })}
             </div>
           </>
         ) : (
-          <span>No Online Orders!</span>
+          <>
+            <span>No Online Orders!</span>
+          </>
         )}
       </header>
     </div>
