@@ -47,6 +47,15 @@
   transition: all 1s ease;
 }
 
+.order-wrapper {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+  padding: 0 15px;
+  width: 95%;
+}
+
 @font-face {
   font-family: "Abel";
   src: local("Abel"), url("./fonts/Abel-Regular.ttf") format("ttf");

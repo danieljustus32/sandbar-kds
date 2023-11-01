@@ -67,6 +67,9 @@ function App() {
                     </span>
                     <span>{formatPhoneNumber(ticket.data.phone)}</span>
                     <span>{moment(ticket.createdAt).format("HH:mm")}</span>
+                    <div className="order-wrapper">
+                      <span>Order</span>
+                    </div>
                   </div>
                 );
               })}
