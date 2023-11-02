@@ -32,7 +32,6 @@ function App() {
           where: { open: true },
           order: [{ field: "number", dir: "asc" }],
           limit: 4,
-          order: "asc",
         }),
       }).toString();
       console.log("KDS is checking for tickets!");
@@ -53,30 +52,30 @@ function App() {
     }, 1000);
   }, []);
 
-  // async function closeTicket(rowId) {
-  //   const apiUrl = new URL(`https://data.plasmic.app/api/v1/cms/rows/${rowId}`);
-  //   // Do network stuff
-  //   try {
-  //     const updateJson = {
-  //       data: {
-  //         open: false,
-  //       },
-  //     };
-  //     const response = await fetch(apiUrl.toString(), {
-  //       method: "PUT",
-  //       headers: {
-  //         // Plasmic CMS ID and CMS Public API token
-  //         "x-plasmic-api-cms-tokens": `${CMS_ID}:${CMS_SECRET_TOKEN}`,
-  //         "content-type": "application/json",
-  //       },
-  //       body: JSON.stringify(updateJson),
-  //     });
-  //     const parsedResponse = await response.json();
-  //     console.log(parsedResponse);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // }
+  async function closeTicket(rowId) {
+    const apiUrl = new URL(`https://data.plasmic.app/api/v1/cms/rows/${rowId}`);
+    // Do network stuff
+    try {
+      const updateJson = {
+        data: {
+          open: false,
+        },
+      };
+      const response = await fetch(apiUrl.toString(), {
+        method: "PUT",
+        headers: {
+          // Plasmic CMS ID and CMS Private API token
+          "x-plasmic-api-cms-tokens": `${CMS_ID}:${CMS_SECRET_TOKEN}`,
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(updateJson),
+      });
+      const parsedResponse = await response.json();
+      console.log(parsedResponse);
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   // FOR DEBUG PURPOSES //
   useEffect(() => {
@@ -103,7 +102,7 @@ function App() {
                     <span>{ticket.data.lastName}</span>
                     <span>{lpad(ticket.data.number, 3, "0")}</span>
                     <span>{moment(ticket.createdAt).format("HH:mm")}</span>
-                    {/* <button onClick={() => closeTicket(ticket.id)}></button> */}
+                    <button onClick={() => closeTicket(ticket.id)}></button>
                     <div className="order-wrapper">
                       <ul>
                         {ticket.data.order.map((entry) => {
