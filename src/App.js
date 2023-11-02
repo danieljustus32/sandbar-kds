@@ -109,7 +109,7 @@ function App() {
                           return (
                             <li key={uuidv4()} className="line-item">
                               <span>
-                                {entry.item.quantity
+                                {entry.item.quantity > 1
                                   ? `${entry.item.quantity}x ${entry.item.name}`
                                   : entry.item.name}
                               </span>
