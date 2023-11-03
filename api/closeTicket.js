@@ -25,5 +25,5 @@ export default function handler(req, res) {
       return res.json({ error });
     }
   }
-  closeTicket(req.query);
+  //   closeTicket(req.query);
 }
