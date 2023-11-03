@@ -26,4 +26,5 @@ export default function handler(req, res) {
     }
   }
   //   closeTicket(req.query);
+  return;
 }
