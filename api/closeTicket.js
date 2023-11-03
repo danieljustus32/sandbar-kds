@@ -26,5 +26,7 @@ export default function handler(req, res) {
     }
   }
   //   closeTicket(req.query);
-  return;
+  return res.json({
+    message: parsedResponse,
+  });
 }
